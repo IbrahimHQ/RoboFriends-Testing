@@ -1,13 +1,18 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount, render } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import CardList from './CardList';
-const filteredRobots = [{
-    id: 1,
-    name: 'Leanne Graham',
-    username: 'Bret',
-    email: 'Sincere@april.biz'
-  }]
 
-it('renders without crashing', () => {
-  expect(shallow(<CardList robots={filteredRobots}/>)).toMatchSnapshot();
+it('renders CardList', () => {
+  const mockRobots = [
+    {
+      id: 1,
+      name: "John Smith",
+      username: "John",
+      email: "john@gmail.com"
+    }
+  ]
+
+  const wrapper = shallow(<CardList robots={mockRobots} />);
+  expect(toJson(wrapper)).toMatchSnapshot();
 });

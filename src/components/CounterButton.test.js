@@ -1,17 +1,23 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount, render } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import CounterButton from './CounterButton';
 
 it('renders without crashing', () => {
-  expect(shallow(<CounterButton />)).toMatchSnapshot();
+  const mockColor = "red";
+  const wrapper = shallow(<CounterButton color={mockColor} />);
+  expect(toJson(wrapper)).toMatchSnapshot();
 });
 
 it('correnctly increments the counter', () => {
-  const wrapper = shallow(<CounterButton/>)
-  expect(wrapper).toMatchSnapshot();
-  wrapper.find('[id="counter"]').simulate('click');
-  expect((wrapper.state())).toEqual({count: 1})
-  wrapper.find('[id="counter"]').simulate('click');
-  wrapper.find('[id="counter"]').simulate('click');
-  expect((wrapper.state())).toEqual({count: 3})
+  const mockColor = "red";
+  const wrapper = shallow(<CounterButton color={mockColor} />);
+  expect(toJson(wrapper)).toMatchSnapshot();
+
+  wrapper.find("[id='counter']").simulate("click"); //causes state change
+  wrapper.find("[id='counter']").simulate("click");
+  expect(wrapper.state()).toEqual({ count: 2 }); //tests result of statechange
+  wrapper.find("[id='counter']").simulate("keypress");
+  expect(wrapper.state()).toEqual({ count: 2 });
+  expect(wrapper.props().color).toEqual('red');
 });
