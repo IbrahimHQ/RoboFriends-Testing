@@ -1,11 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { shallow } from 'enzyme';
+import { shallow, mount, render } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import MainPage from './MainPage';
 
 let wrapper;
 
-beforeEach(() => {
+beforeEach(() => { //keyword --> runs function before each test
   const mockProps = {
     onRequestRobots: jest.fn(),
     robots: [],
@@ -13,13 +14,13 @@ beforeEach(() => {
     isPending: false
   }
   wrapper = shallow(<MainPage {...mockProps}/>)
- })
+ });
 
-it('renders without crashing', () => {
-  expect(wrapper).toMatchSnapshot();
+it('renders MainPage without crashing', () => {
+  expect(toJson(wrapper)).toMatchSnapshot();
 });
 
-it('fileters Robots', () => {
+it('filters Robots', () => {
   const mockProps = {
     onRequestRobots: jest.fn(),
     robots: [],
@@ -30,7 +31,7 @@ it('fileters Robots', () => {
   expect(wrapper.instance().filterRobots()).toEqual([]);
 });
 
-it('fileters Robots correctly', () => {
+it('filters Robots correctly', () => {
   const filteredRobots = [{
     id: 1,
     name: 'Leanne Graham',
@@ -52,7 +53,7 @@ it('fileters Robots correctly', () => {
   expect(wrapper.instance().filterRobots()).toEqual(filteredRobots);
 });
 
-it('fileters Robots correctly 2', () => {
+it('filters Robots correctly 2', () => {
   const filteredRobots = [{
     id: 1,
     name: 'Leanne Graham',

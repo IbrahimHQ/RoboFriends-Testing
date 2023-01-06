@@ -5,6 +5,7 @@ import SearchBox from './SearchBox';
 import Scroll from './Scroll';
 import ErrorBoundry from './ErrorBoundry';
 import Header from './Header';
+import './MainPage.css';
 
 export class MainPage extends Component {
   componentDidMount() {
@@ -37,4 +38,4 @@ export class MainPage extends Component {
   }
 }
 
-export default MainPage
+export default MainPage;
